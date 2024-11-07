@@ -9,9 +9,9 @@
         "TrsrBondMkt": {
             "opngDtTm": "2024-11-07T09:25:00",
             "clsgDtTm": "2024-11-08T05:00:00",
-            "qtnDtTm": "2024-11-07T15:38:46.313",
-            "stsCd": 1,
-            "sts": "Aberto"
+            "qtnDtTm": "2024-11-07T18:03:30.347",
+            "stsCd": 4,
+            "sts": "Fechado"
         },
         "TrsrBdTradgList": [
             {
@@ -1894,7 +1894,7 @@
         ],
         "BizSts": {
             "cd": null,
-            "dtTm": "2024-11-07 15:44:01.378"
+            "dtTm": "2024-11-07 18:14:01.313"
         }
     }
 }
