@@ -53,7 +53,7 @@ if __name__ == "__main__":
 
     planilha = gc.open('Investimentos')
 
-    for mercado in opcoes_busca.keys() : #['Acoes' ,'Fii' , 'Stocks'] :
+    for mercado in ['Stocks'] :#opcoes_busca.keys() : #['Acoes' ,'Fii' , 'Stocks'] :
         driver = webdriver.Chrome(options=opts) 
         SI(mercado,driver)
         driver.quit()
@@ -73,4 +73,4 @@ if __name__ == "__main__":
 
         driver.quit()
         print(" ====== Terminou staus invest")
-
+    driver.quit()
