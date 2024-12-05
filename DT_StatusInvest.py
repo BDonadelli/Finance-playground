@@ -22,7 +22,11 @@ def SI(mercado = 'Acoes' , driver=driver) :
     driver.get(url)
     
     path='//div/button[contains(@class,"find")]'           ## Busca
-    path2='//div/a[contains(@class,"btn-download")]'       ## Download
+    path21='//div/a[contains(@class,"btn-download")]'       ## Download
+    path22='//*[@id="main-2"]/div[2]/div/div[1]/div[2]/a/span'
+
+    if mercado != 'Stocks' : path2=path21
+    else : path2=path22
  
     print(' ====== Busca')
     driver.find_element(By.XPATH,path).click()
@@ -31,7 +35,7 @@ def SI(mercado = 'Acoes' , driver=driver) :
 
     print(" ====== Download ")
     driver.find_element(By.XPATH,path2).click()
-    sleep(3)
+    sleep(2)
 
     #remove arquivo velho
     import os
@@ -53,7 +57,7 @@ if __name__ == "__main__":
 
     planilha = gc.open('Investimentos')
 
-    for mercado in opcoes_busca.keys() : #['Acoes' ,'Fii' , 'Stocks'] :
+    for mercado in ['Stocks'] : #opcoes_busca.keys() : #['Acoes' ,'Fii' , 'Stocks'] :
         driver = webdriver.Chrome(options=opts) 
         SI(mercado,driver)
         driver.quit()
