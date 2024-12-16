@@ -10,8 +10,8 @@
             "opngDtTm": "2024-12-16T09:25:00",
             "clsgDtTm": "2024-12-17T05:00:00",
             "qtnDtTm": "2024-12-16T15:35:03.17",
-            "stsCd": 1,
-            "sts": "Aberto"
+            "stsCd": 4,
+            "sts": "Fechado"
         },
         "TrsrBdTradgList": [
             {
@@ -1894,7 +1894,7 @@
         ],
         "BizSts": {
             "cd": null,
-            "dtTm": "2024-12-16 15:44:01.265"
+            "dtTm": "2024-12-16 18:15:01.726"
         }
     }
 }
