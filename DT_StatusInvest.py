@@ -30,7 +30,7 @@ def SI(mercado = 'Acoes' , driver=driver) :
  
     print(' ====== Busca')
     driver.find_element(By.XPATH,path).click()
-    sleep(1)
+    sleep(3)
     ##print('Anuncio')#sleep(5)#driver.find_elements(By.CLASS_NAME,'btn-close')[0].click()#
 
     print(" ====== Download ")
@@ -57,7 +57,7 @@ if __name__ == "__main__":
 
     planilha = gc.open('Investimentos')
 
-    for mercado in ['Stocks'] : #opcoes_busca.keys() : #['Acoes' ,'Fii' , 'Stocks'] :
+    for mercado in ['Acoes' ,'Fii' , 'Stocks'] :
         driver = webdriver.Chrome(options=opts) 
         SI(mercado,driver)
         driver.quit()
