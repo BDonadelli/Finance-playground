@@ -10,8 +10,8 @@
             "opngDtTm": "2025-04-07T09:25:00",
             "clsgDtTm": "2025-04-08T05:00:00",
             "qtnDtTm": "2025-04-07T15:27:04.937",
-            "stsCd": 1,
-            "sts": "Aberto"
+            "stsCd": 4,
+            "sts": "Fechado"
         },
         "TrsrBdTradgList": [
             {
@@ -2067,7 +2067,7 @@
         ],
         "BizSts": {
             "cd": null,
-            "dtTm": "2025-04-07 15:44:01.162"
+            "dtTm": "2025-04-07 18:15:01.782"
         }
     }
 }
