@@ -9,7 +9,7 @@
         "TrsrBondMkt": {
             "opngDtTm": "2025-04-10T09:25:00",
             "clsgDtTm": "2025-04-11T05:00:00",
-            "qtnDtTm": "2025-04-10T12:05:32.737",
+            "qtnDtTm": "2025-04-10T13:04:43.54",
             "stsCd": 1,
             "sts": "Aberto"
         },
@@ -28,8 +28,8 @@
                     "anulInvstmtRate": 0.0,
                     "anulRedRate": 0.0054,
                     "minRedQty": 0.01,
-                    "untrRedVal": 16361.24,
-                    "minRedVal": 163.61,
+                    "untrRedVal": 16369.9,
+                    "minRedVal": 163.7,
                     "isinCd": "BRSTNCLF1RE0",
                     "FinIndxs": {
                         "cd": 17,
@@ -62,8 +62,8 @@
                     "anulInvstmtRate": 0.0,
                     "anulRedRate": 0.0499,
                     "minRedQty": 0.01,
-                    "untrRedVal": 16346.78,
-                    "minRedVal": 163.47,
+                    "untrRedVal": 16355.44,
+                    "minRedVal": 163.55,
                     "isinCd": "BRSTNCLF1RG5",
                     "FinIndxs": {
                         "cd": 17,
@@ -96,8 +96,8 @@
                     "anulInvstmtRate": 0.06,
                     "anulRedRate": 0.07,
                     "minRedQty": 0.01,
-                    "untrRedVal": 16329.16,
-                    "minRedVal": 163.29,
+                    "untrRedVal": 16337.84,
+                    "minRedVal": 163.38,
                     "isinCd": "BRSTNCLF1RI1",
                     "FinIndxs": {
                         "cd": 17,
@@ -130,8 +130,8 @@
                     "anulInvstmtRate": 0.0,
                     "anulRedRate": 0.1098,
                     "minRedQty": 0.01,
-                    "untrRedVal": 16292.92,
-                    "minRedVal": 162.93,
+                    "untrRedVal": 16301.6,
+                    "minRedVal": 163.02,
                     "isinCd": "BRSTNCLF1RL5",
                     "FinIndxs": {
                         "cd": 17,
@@ -164,8 +164,8 @@
                     "anulInvstmtRate": 0.113,
                     "anulRedRate": 0.123,
                     "minRedQty": 0.01,
-                    "untrRedVal": 16244.88,
-                    "minRedVal": 162.45,
+                    "untrRedVal": 16253.55,
+                    "minRedVal": 162.54,
                     "isinCd": "BRSTNCLF1RU6",
                     "FinIndxs": {
                         "cd": 17,
@@ -198,7 +198,7 @@
                     "anulInvstmtRate": 0.0,
                     "anulRedRate": 14.83,
                     "minRedQty": 0.01,
-                    "untrRedVal": 903.96,
+                    "untrRedVal": 904.45,
                     "minRedVal": 9.04,
                     "isinCd": "BRSTNCLTN7U7",
                     "FinIndxs": {
@@ -232,7 +232,7 @@
                     "anulInvstmtRate": 0.0,
                     "anulRedRate": 14.56,
                     "minRedQty": 0.01,
-                    "untrRedVal": 791.71,
+                    "untrRedVal": 792.13,
                     "minRedVal": 7.92,
                     "isinCd": "BRSTNCLTN8C3",
                     "FinIndxs": {
@@ -266,8 +266,8 @@
                     "anulInvstmtRate": 0.0,
                     "anulRedRate": 14.57,
                     "minRedQty": 0.01,
-                    "untrRedVal": 963.2,
-                    "minRedVal": 9.63,
+                    "untrRedVal": 963.72,
+                    "minRedVal": 9.64,
                     "isinCd": "BRSTNCNTF1P8",
                     "FinIndxs": {
                         "cd": 19,
@@ -300,8 +300,8 @@
                     "anulInvstmtRate": 14.33,
                     "anulRedRate": 14.45,
                     "minRedQty": 0.01,
-                    "untrRedVal": 693.26,
-                    "minRedVal": 6.93,
+                    "untrRedVal": 693.63,
+                    "minRedVal": 6.94,
                     "isinCd": "BRSTNCLTN897",
                     "FinIndxs": {
                         "cd": 19,
@@ -334,7 +334,7 @@
                     "anulInvstmtRate": 0.0,
                     "anulRedRate": 14.63,
                     "minRedQty": 0.01,
-                    "untrRedVal": 603.51,
+                    "untrRedVal": 603.84,
                     "minRedVal": 6.04,
                     "isinCd": "BRSTNCLTN806",
                     "FinIndxs": {
@@ -368,8 +368,8 @@
                     "anulInvstmtRate": 0.0,
                     "anulRedRate": 14.65,
                     "minRedQty": 0.01,
-                    "untrRedVal": 905.33,
-                    "minRedVal": 9.05,
+                    "untrRedVal": 905.82,
+                    "minRedVal": 9.06,
                     "isinCd": "BRSTNCNTF1Q6",
                     "FinIndxs": {
                         "cd": 19,
@@ -402,7 +402,7 @@
                     "anulInvstmtRate": 0.0,
                     "anulRedRate": 14.9,
                     "minRedQty": 0.01,
-                    "untrRedVal": 453.93,
+                    "untrRedVal": 454.18,
                     "minRedVal": 4.54,
                     "isinCd": "BRSTNCLTN8D1",
                     "FinIndxs": {
@@ -436,7 +436,7 @@
                     "anulInvstmtRate": 0.0,
                     "anulRedRate": 14.99,
                     "minRedQty": 0.01,
-                    "untrRedVal": 850.82,
+                    "untrRedVal": 851.29,
                     "minRedVal": 8.51,
                     "isinCd": "BRSTNCNTF204",
                     "FinIndxs": {
@@ -470,7 +470,7 @@
                     "anulInvstmtRate": 14.87,
                     "anulRedRate": 14.99,
                     "minRedQty": 0.01,
-                    "untrRedVal": 393.0,
+                    "untrRedVal": 393.22,
                     "minRedVal": 3.93,
                     "isinCd": "BRSTNCLTN8J8",
                     "FinIndxs": {
@@ -504,7 +504,7 @@
                     "anulInvstmtRate": 0.0,
                     "anulRedRate": 15.03,
                     "minRedQty": 0.01,
-                    "untrRedVal": 813.62,
+                    "untrRedVal": 814.07,
                     "minRedVal": 8.14,
                     "isinCd": "BRSTNCNTF212",
                     "FinIndxs": {
@@ -538,7 +538,7 @@
                     "anulInvstmtRate": 15.02,
                     "anulRedRate": 15.14,
                     "minRedQty": 0.01,
-                    "untrRedVal": 782.89,
+                    "untrRedVal": 783.33,
                     "minRedVal": 7.83,
                     "isinCd": "BRSTNCNTF238",
                     "FinIndxs": {
@@ -572,8 +572,8 @@
                     "anulInvstmtRate": 0.0,
                     "anulRedRate": 9.49,
                     "minRedQty": 0.01,
-                    "untrRedVal": 3968.21,
-                    "minRedVal": 39.68,
+                    "untrRedVal": 3970.34,
+                    "minRedVal": 39.7,
                     "isinCd": "BRSTNCNTB4W2",
                     "FinIndxs": {
                         "cd": 22,
@@ -606,8 +606,8 @@
                     "anulInvstmtRate": 0.0,
                     "anulRedRate": 9.49,
                     "minRedQty": 0.01,
-                    "untrRedVal": 4336.63,
-                    "minRedVal": 43.37,
+                    "untrRedVal": 4338.96,
+                    "minRedVal": 43.39,
                     "isinCd": "BRSTNCNTB4U6",
                     "FinIndxs": {
                         "cd": 22,
@@ -640,8 +640,8 @@
                     "anulInvstmtRate": 7.83,
                     "anulRedRate": 7.95,
                     "minRedQty": 0.01,
-                    "untrRedVal": 3286.2,
-                    "minRedVal": 32.86,
+                    "untrRedVal": 3287.78,
+                    "minRedVal": 32.88,
                     "isinCd": "BRSTNCNTB6A3",
                     "FinIndxs": {
                         "cd": 22,
@@ -674,8 +674,8 @@
                     "anulInvstmtRate": 0.0,
                     "anulRedRate": 7.94,
                     "minRedQty": 0.01,
-                    "untrRedVal": 4171.72,
-                    "minRedVal": 41.72,
+                    "untrRedVal": 4173.72,
+                    "minRedVal": 41.74,
                     "isinCd": "BRSTNCNTB3B8",
                     "FinIndxs": {
                         "cd": 22,
@@ -708,8 +708,8 @@
                     "anulInvstmtRate": 8.07,
                     "anulRedRate": 8.19,
                     "minRedQty": 0.01,
-                    "untrRedVal": 3506.92,
-                    "minRedVal": 35.07,
+                    "untrRedVal": 3508.63,
+                    "minRedVal": 35.09,
                     "isinCd": "BRSTNCNAP0G8",
                     "FinIndxs": {
                         "cd": 22,
@@ -745,8 +745,8 @@
                     "anulInvstmtRate": 7.9,
                     "anulRedRate": 8.02,
                     "minRedQty": 0.01,
-                    "untrRedVal": 3264.11,
-                    "minRedVal": 32.64,
+                    "untrRedVal": 3265.68,
+                    "minRedVal": 32.66,
                     "isinCd": "BRSTNCNAP0P9",
                     "FinIndxs": {
                         "cd": 22,
@@ -782,8 +782,8 @@
                     "anulInvstmtRate": 0.0,
                     "anulRedRate": 7.89,
                     "minRedQty": 0.01,
-                    "untrRedVal": 4080.83,
-                    "minRedVal": 40.81,
+                    "untrRedVal": 4082.78,
+                    "minRedVal": 40.83,
                     "isinCd": "BRSTNCNTB674",
                     "FinIndxs": {
                         "cd": 22,
@@ -816,8 +816,8 @@
                     "anulInvstmtRate": 7.8,
                     "anulRedRate": 7.92,
                     "minRedQty": 0.01,
-                    "untrRedVal": 3037.22,
-                    "minRedVal": 30.37,
+                    "untrRedVal": 3038.68,
+                    "minRedVal": 30.39,
                     "isinCd": "BRSTNCNAP0H6",
                     "FinIndxs": {
                         "cd": 22,
@@ -853,8 +853,8 @@
                     "anulInvstmtRate": 7.73,
                     "anulRedRate": 7.85,
                     "minRedQty": 0.01,
-                    "untrRedVal": 2826.66,
-                    "minRedVal": 28.27,
+                    "untrRedVal": 2828.0,
+                    "minRedVal": 28.28,
                     "isinCd": "BRSTNCNAP0I4",
                     "FinIndxs": {
                         "cd": 22,
@@ -890,8 +890,8 @@
                     "anulInvstmtRate": 7.69,
                     "anulRedRate": 7.81,
                     "minRedQty": 0.01,
-                    "untrRedVal": 2628.45,
-                    "minRedVal": 26.28,
+                    "untrRedVal": 2629.7,
+                    "minRedVal": 26.3,
                     "isinCd": "BRSTNCNAP0J2",
                     "FinIndxs": {
                         "cd": 22,
@@ -927,8 +927,8 @@
                     "anulInvstmtRate": 0.0,
                     "anulRedRate": 7.73,
                     "minRedQty": 0.01,
-                    "untrRedVal": 2124.7,
-                    "minRedVal": 21.25,
+                    "untrRedVal": 2125.7,
+                    "minRedVal": 21.26,
                     "isinCd": "BRSTNCNTB3E2",
                     "FinIndxs": {
                         "cd": 22,
@@ -961,8 +961,8 @@
                     "anulInvstmtRate": 7.67,
                     "anulRedRate": 7.79,
                     "minRedQty": 0.01,
-                    "untrRedVal": 4065.21,
-                    "minRedVal": 40.65,
+                    "untrRedVal": 4067.14,
+                    "minRedVal": 40.67,
                     "isinCd": "BRSTNCNTB0O7",
                     "FinIndxs": {
                         "cd": 22,
@@ -995,8 +995,8 @@
                     "anulInvstmtRate": 7.66,
                     "anulRedRate": 7.78,
                     "minRedQty": 0.01,
-                    "untrRedVal": 2444.25,
-                    "minRedVal": 24.44,
+                    "untrRedVal": 2445.41,
+                    "minRedVal": 24.45,
                     "isinCd": "BRSTNCNAP0K0",
                     "FinIndxs": {
                         "cd": 22,
@@ -1032,8 +1032,8 @@
                     "anulInvstmtRate": 7.62,
                     "anulRedRate": 7.74,
                     "minRedQty": 0.01,
-                    "untrRedVal": 2276.29,
-                    "minRedVal": 22.76,
+                    "untrRedVal": 2277.37,
+                    "minRedVal": 22.77,
                     "isinCd": "BRSTNCNAP0Q7",
                     "FinIndxs": {
                         "cd": 22,
@@ -1069,8 +1069,8 @@
                     "anulInvstmtRate": 7.58,
                     "anulRedRate": 7.7,
                     "minRedQty": 0.01,
-                    "untrRedVal": 2121.61,
-                    "minRedVal": 21.22,
+                    "untrRedVal": 2122.61,
+                    "minRedVal": 21.23,
                     "isinCd": "BRSTNCNAP0R5",
                     "FinIndxs": {
                         "cd": 22,
@@ -1106,8 +1106,8 @@
                     "anulInvstmtRate": 7.54,
                     "anulRedRate": 7.66,
                     "minRedQty": 0.01,
-                    "untrRedVal": 1979.25,
-                    "minRedVal": 19.79,
+                    "untrRedVal": 1980.18,
+                    "minRedVal": 19.8,
                     "isinCd": "BRSTNCNAP0L8",
                     "FinIndxs": {
                         "cd": 22,
@@ -1143,8 +1143,8 @@
                     "anulInvstmtRate": 7.51,
                     "anulRedRate": 7.63,
                     "minRedQty": 0.01,
-                    "untrRedVal": 1845.72,
-                    "minRedVal": 18.46,
+                    "untrRedVal": 1846.59,
+                    "minRedVal": 18.47,
                     "isinCd": "BRSTNCNAP0M6",
                     "FinIndxs": {
                         "cd": 22,
@@ -1180,8 +1180,8 @@
                     "anulInvstmtRate": 7.4,
                     "anulRedRate": 7.52,
                     "minRedQty": 0.01,
-                    "untrRedVal": 1482.43,
-                    "minRedVal": 14.82,
+                    "untrRedVal": 1483.12,
+                    "minRedVal": 14.83,
                     "isinCd": "BRSTNCNTB666",
                     "FinIndxs": {
                         "cd": 22,
@@ -1214,8 +1214,8 @@
                     "anulInvstmtRate": 0.0,
                     "anulRedRate": 7.63,
                     "minRedQty": 0.01,
-                    "untrRedVal": 3900.24,
-                    "minRedVal": 39.0,
+                    "untrRedVal": 3902.07,
+                    "minRedVal": 39.02,
                     "isinCd": "BRSTNCNTB3C6",
                     "FinIndxs": {
                         "cd": 22,
@@ -1248,8 +1248,8 @@
                     "anulInvstmtRate": 7.47,
                     "anulRedRate": 7.59,
                     "minRedQty": 0.01,
-                    "untrRedVal": 1723.83,
-                    "minRedVal": 17.24,
+                    "untrRedVal": 1724.63,
+                    "minRedVal": 17.25,
                     "isinCd": "BRSTNCNAP0N4",
                     "FinIndxs": {
                         "cd": 22,
@@ -1285,8 +1285,8 @@
                     "anulInvstmtRate": 7.44,
                     "anulRedRate": 7.56,
                     "minRedQty": 0.01,
-                    "untrRedVal": 1609.03,
-                    "minRedVal": 16.09,
+                    "untrRedVal": 1609.77,
+                    "minRedVal": 16.1,
                     "isinCd": "BRSTNCNAP0O2",
                     "FinIndxs": {
                         "cd": 22,
@@ -1322,7 +1322,7 @@
                     "anulInvstmtRate": 7.42,
                     "anulRedRate": 7.54,
                     "minRedQty": 0.01,
-                    "untrRedVal": 1500.63,
+                    "untrRedVal": 1501.33,
                     "minRedVal": 15.01,
                     "isinCd": "BRSTNCNAP0S3",
                     "FinIndxs": {
@@ -1359,7 +1359,7 @@
                     "anulInvstmtRate": 7.42,
                     "anulRedRate": 7.54,
                     "minRedQty": 0.01,
-                    "untrRedVal": 1395.77,
+                    "untrRedVal": 1396.42,
                     "minRedVal": 13.96,
                     "isinCd": "BRSTNCNAP0T1",
                     "FinIndxs": {
@@ -1396,8 +1396,8 @@
                     "anulInvstmtRate": 7.42,
                     "anulRedRate": 7.54,
                     "minRedQty": 0.01,
-                    "untrRedVal": 1298.35,
-                    "minRedVal": 12.98,
+                    "untrRedVal": 1298.95,
+                    "minRedVal": 12.99,
                     "isinCd": "BRSTNCNAP0U9",
                     "FinIndxs": {
                         "cd": 22,
@@ -1433,7 +1433,7 @@
                     "anulInvstmtRate": 0.0,
                     "anulRedRate": 7.56,
                     "minRedQty": 0.01,
-                    "untrRedVal": 1045.74,
+                    "untrRedVal": 1046.23,
                     "minRedVal": 10.46,
                     "isinCd": "BRSTNCNTB2U0",
                     "FinIndxs": {
@@ -1467,8 +1467,8 @@
                     "anulInvstmtRate": 7.52,
                     "anulRedRate": 7.64,
                     "minRedQty": 0.01,
-                    "untrRedVal": 3876.23,
-                    "minRedVal": 38.76,
+                    "untrRedVal": 3878.05,
+                    "minRedVal": 38.78,
                     "isinCd": "BRSTNCNTB0A6",
                     "FinIndxs": {
                         "cd": 22,
@@ -1501,7 +1501,7 @@
                     "anulInvstmtRate": 7.42,
                     "anulRedRate": 7.54,
                     "minRedQty": 0.01,
-                    "untrRedVal": 1207.81,
+                    "untrRedVal": 1208.38,
                     "minRedVal": 12.08,
                     "isinCd": "BRSTNCNAP0V7",
                     "FinIndxs": {
@@ -1538,7 +1538,7 @@
                     "anulInvstmtRate": 7.42,
                     "anulRedRate": 7.54,
                     "minRedQty": 0.01,
-                    "untrRedVal": 1123.67,
+                    "untrRedVal": 1124.19,
                     "minRedVal": 11.24,
                     "isinCd": "BRSTNCNAP0W5",
                     "FinIndxs": {
@@ -1575,8 +1575,8 @@
                     "anulInvstmtRate": 7.4,
                     "anulRedRate": 7.52,
                     "minRedQty": 0.01,
-                    "untrRedVal": 1049.37,
-                    "minRedVal": 10.49,
+                    "untrRedVal": 1049.85,
+                    "minRedVal": 10.5,
                     "isinCd": "BRSTNCNAP0X3",
                     "FinIndxs": {
                         "cd": 22,
@@ -1612,8 +1612,8 @@
                     "anulInvstmtRate": 7.48,
                     "anulRedRate": 7.6,
                     "minRedQty": 0.01,
-                    "untrRedVal": 1674.2,
-                    "minRedVal": 16.74,
+                    "untrRedVal": 1674.98,
+                    "minRedVal": 16.75,
                     "isinCd": "BRSTNCNAP0E3",
                     "FinIndxs": {
                         "cd": 22,
@@ -1649,8 +1649,8 @@
                     "anulInvstmtRate": 7.2,
                     "anulRedRate": 7.32,
                     "minRedQty": 0.01,
-                    "untrRedVal": 756.31,
-                    "minRedVal": 7.56,
+                    "untrRedVal": 756.65,
+                    "minRedVal": 7.57,
                     "isinCd": "BRSTNCNTB476",
                     "FinIndxs": {
                         "cd": 22,
@@ -1683,8 +1683,8 @@
                     "anulInvstmtRate": 0.0,
                     "anulRedRate": 7.52,
                     "minRedQty": 0.01,
-                    "untrRedVal": 3792.03,
-                    "minRedVal": 37.92,
+                    "untrRedVal": 3793.79,
+                    "minRedVal": 37.94,
                     "isinCd": "BRSTNCNTB3D4",
                     "FinIndxs": {
                         "cd": 22,
@@ -1717,8 +1717,8 @@
                     "anulInvstmtRate": 7.37,
                     "anulRedRate": 7.49,
                     "minRedQty": 0.01,
-                    "untrRedVal": 1184.08,
-                    "minRedVal": 11.84,
+                    "untrRedVal": 1184.63,
+                    "minRedVal": 11.85,
                     "isinCd": "BRSTNCNAP096",
                     "FinIndxs": {
                         "cd": 22,
@@ -1754,8 +1754,8 @@
                     "anulInvstmtRate": 0.0,
                     "anulRedRate": 7.48,
                     "minRedQty": 0.01,
-                    "untrRedVal": 3836.54,
-                    "minRedVal": 38.37,
+                    "untrRedVal": 3838.32,
+                    "minRedVal": 38.38,
                     "isinCd": "BRSTNCNTB4Q4",
                     "FinIndxs": {
                         "cd": 22,
@@ -1788,7 +1788,7 @@
                     "anulInvstmtRate": 7.28,
                     "anulRedRate": 7.4,
                     "minRedQty": 0.01,
-                    "untrRedVal": 842.5,
+                    "untrRedVal": 842.88,
                     "minRedVal": 8.43,
                     "isinCd": "BRSTNCNAP0A1",
                     "FinIndxs": {
@@ -1825,8 +1825,8 @@
                     "anulInvstmtRate": 7.36,
                     "anulRedRate": 7.48,
                     "minRedQty": 0.01,
-                    "untrRedVal": 3738.21,
-                    "minRedVal": 37.38,
+                    "untrRedVal": 3739.94,
+                    "minRedVal": 37.4,
                     "isinCd": "BRSTNCNTB690",
                     "FinIndxs": {
                         "cd": 22,
@@ -1859,7 +1859,7 @@
                     "anulInvstmtRate": 7.21,
                     "anulRedRate": 7.33,
                     "minRedQty": 0.01,
-                    "untrRedVal": 601.56,
+                    "untrRedVal": 601.83,
                     "minRedVal": 6.02,
                     "isinCd": "BRSTNCNAP0F0",
                     "FinIndxs": {
@@ -1896,7 +1896,7 @@
                     "anulInvstmtRate": 7.15,
                     "anulRedRate": 7.27,
                     "minRedQty": 0.01,
-                    "untrRedVal": 430.96,
+                    "untrRedVal": 431.16,
                     "minRedVal": 4.31,
                     "isinCd": "BRSTNCNAP0D5",
                     "FinIndxs": {
@@ -1933,7 +1933,7 @@
                     "anulInvstmtRate": 7.14,
                     "anulRedRate": 7.26,
                     "minRedQty": 0.01,
-                    "untrRedVal": 305.11,
+                    "untrRedVal": 305.25,
                     "minRedVal": 3.05,
                     "isinCd": "BRSTNCNAP0B9",
                     "FinIndxs": {
@@ -1970,7 +1970,7 @@
                     "anulInvstmtRate": 7.14,
                     "anulRedRate": 7.26,
                     "minRedQty": 0.01,
-                    "untrRedVal": 215.35,
+                    "untrRedVal": 215.45,
                     "minRedVal": 2.15,
                     "isinCd": "BRSTNCNAP0C7",
                     "FinIndxs": {
@@ -2007,7 +2007,7 @@
                     "anulInvstmtRate": 7.14,
                     "anulRedRate": 7.26,
                     "minRedQty": 0.01,
-                    "untrRedVal": 152.02,
+                    "untrRedVal": 152.08,
                     "minRedVal": 1.52,
                     "isinCd": "BRSTNCNAP088",
                     "FinIndxs": {
@@ -2044,8 +2044,8 @@
                     "anulInvstmtRate": 0.0,
                     "anulRedRate": 7.96,
                     "minRedQty": 0.01,
-                    "untrRedVal": 7959.55,
-                    "minRedVal": 79.6,
+                    "untrRedVal": 7961.66,
+                    "minRedVal": 79.62,
                     "isinCd": "BRSTNCNTC0K4",
                     "FinIndxs": {
                         "cd": 1,
@@ -2067,7 +2067,7 @@
         ],
         "BizSts": {
             "cd": null,
-            "dtTm": "2025-04-10 12:44:02.455"
+            "dtTm": "2025-04-10 15:44:01.171"
         }
     }
 }
