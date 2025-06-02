@@ -4,3 +4,42 @@ dic*.md
 c*.json
 a.log
 login*txt
+
+# Arquivos de backup e temporários (gerados por editores)
+*~
+#*#
+*.swp
+*.swo
+
+# Arquivos do LaTeX
+*.aux
+*.log
+*.out
+*.toc
+*.lof
+*.lot
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+*.bbl
+*.blg
+
+# Arquivos Python temporários e caches
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Arquivos gerados por Jupyter
+.ipynb_checkpoints/
+
+# Diretórios do VSCode ou outros IDEs
+.vscode/
+.idea/
+
+# Ignorar PDFs gerados, se quiser
+# ruina.pdf
+
+# Arquivos ocultos do sistema
+.DS_Store
+Thumbs.db
