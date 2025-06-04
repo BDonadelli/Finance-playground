@@ -7,11 +7,11 @@
             "cd": 0
         },
         "TrsrBondMkt": {
-            "opngDtTm": "2025-06-03T09:25:00",
-            "clsgDtTm": "2025-06-04T05:00:00",
+            "opngDtTm": "2025-06-04T09:25:00",
+            "clsgDtTm": "2025-06-05T05:00:00",
             "qtnDtTm": "2025-06-03T15:28:13.937",
-            "stsCd": 4,
-            "sts": "Fechado"
+            "stsCd": 3,
+            "sts": "Em manutenção"
         },
         "TrsrBdTradgList": [
             {
@@ -2067,7 +2067,7 @@
         ],
         "BizSts": {
             "cd": null,
-            "dtTm": "2025-06-03 21:10:01.294"
+            "dtTm": "2025-06-04 09:44:01.130"
         }
     }
 }
