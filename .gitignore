@@ -2,7 +2,6 @@ Untitled*
 pass*txt
 dic*.md
 c*.json
-a.log
 login*txt
 
 # Arquivos de backup e temporários (gerados por editores)
@@ -36,10 +35,3 @@ __pycache__/
 # Diretórios do VSCode ou outros IDEs
 .vscode/
 .idea/
-
-# Ignorar PDFs gerados, se quiser
-# ruina.pdf
-
-# Arquivos ocultos do sistema
-.DS_Store
-Thumbs.db
