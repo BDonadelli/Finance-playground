@@ -2,6 +2,7 @@ Untitled*
 pass*txt
 dic*.md
 c*.json
+<<<<<<< HEAD
 login*txt
 
 # Arquivos de backup e temporários (gerados por editores)
@@ -35,3 +36,9 @@ __pycache__/
 # Diretórios do VSCode ou outros IDEs
 .vscode/
 .idea/
+=======
+a.log
+login*txt
+*~
+estudos*ipynb
+>>>>>>> 831c13e07be1780ddb660d031e0a26cad58a4991
