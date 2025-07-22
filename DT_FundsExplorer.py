@@ -6,10 +6,10 @@ def dadosFE (setdriver=False) :
           driver=webdriver.Chrome(options=opts)
         
      driver.get("https://www.fundsexplorer.com.br/ranking")
-     sleep(2)
+     sleep(10)
      fecha_prop_path='//*[@id="hs-eu-confirmation-button"]'
      driver.find_element(By.XPATH,fecha_prop_path).click()
-     sleep(2)
+     sleep(10)
 
 #-------------# Muda o contexto para o iframe 
      iframe_element = driver.find_element(By.XPATH, "//iframe[@title='Popup CTA']")
