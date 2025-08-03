@@ -3,7 +3,9 @@
             https://statusinvest.com.br/
     e grava em um planilha (privada) do google docs
 '''
-
+from datetime import date
+today = date.today().strftime('%d/%m/%Y')
+import pandas as pd
 import warnings
 warnings.filterwarnings("ignore")
 
@@ -12,13 +14,15 @@ from  DT_atualiza_settings import *
 opcoes_busca = {'Acoes': 'acoes' , 'Fii':'fundos-imobiliarios' , 'Stocks':'acoes/eua'}
 
 
-def SI(mercado = 'Acoes' , driver=driver) :
+def SI(mercado = 'Acoes' ) :
+
+    from time import sleep
 
     print(f" ====== SI {mercado} ===== ")
 
     onde = opcoes_busca[mercado]
     url = f'https://statusinvest.com.br/{onde}/busca-avancada'
-
+    driver = webdriver.Chrome(options=opts) 
     driver.get(url)
     
     path='//div/button[contains(@class,"find")]'           ## Busca
@@ -58,9 +62,7 @@ if __name__ == "__main__":
     planilha = gc.open('Investimentos')
 
     for mercado in ['Acoes' ,'Fii' , 'Stocks'] :
-        driver = webdriver.Chrome(options=opts) 
-        SI(mercado,driver)
-        driver.quit()
+        SI(mercado)
         print(f" ====== Escrita na planilha {mercado}")
 
         df = pd.read_csv(data_path+'SI_'+mercado+'.csv', 
@@ -75,6 +77,4 @@ if __name__ == "__main__":
         pagina.update(range_name= 'a2', values= [df.columns.values.tolist()] + df.values.tolist())
         pagina.update(range_name= 'a1',values= [[today]])
 
-        driver.quit()
         print(" ====== Terminou staus invest")
-    driver.quit()

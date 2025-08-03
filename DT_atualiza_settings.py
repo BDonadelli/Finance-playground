@@ -1,15 +1,16 @@
-'''
-  biblioteca e configuração para pegar dados
-  - iteragir com google sheets
-  - web scraping com selenium
-'''
-import pandas as pd
+# '''
+#   biblioteca e configuração para pegar dados
+#   - iteragir com google sheets
+#   - web scraping com selenium
+# '''
 import os
 data_path = str(os.getcwd()) + r"/data/"
 
-from time import sleep
-from datetime import date
-today = date.today().strftime('%d/%m/%Y')
+# from datetime import date
+# today = date.today().strftime('%d/%m/%Y')
+# import pandas as pd
+# import warnings
+# warnings.filterwarnings("ignore")
 
 ## - google sheets -----------------
 
@@ -36,4 +37,4 @@ opts.add_experimental_option("prefs", {
   "safebrowsing.enabled": True
 })
 
-driver=webdriver.Chrome(options=opts)
+# driver=webdriver.Chrome(options=opts)
