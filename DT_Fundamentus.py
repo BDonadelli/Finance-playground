@@ -7,6 +7,9 @@ import warnings
 warnings.filterwarnings("ignore")
 from DT_atualiza_settings import *
 
+import pandas as pd
+from datetime import date
+
 def dadosFund () :
     import requests
     url1 = 'https://www.fundamentus.com.br/resultado.php'
