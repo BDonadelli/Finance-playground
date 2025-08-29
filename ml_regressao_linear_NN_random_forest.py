@@ -466,13 +466,13 @@ def main():
                     line=dict(color='orange')
                 ))
             
-            if len(data) >= 50:
-                ma_50 = calculate_moving_average(data['Close'], 50)
+            if len(data) >= 70:
+                ma_70 = calculate_moving_average(data['Close'], 70)
                 fig_ma.add_trace(go.Scatter(
                     x=data['Date'],
-                    y=ma_50,
+                    y=ma_70,
                     mode='lines',
-                    name='MA50',
+                    name='MA70',
                     line=dict(color='green')
                 ))
             
