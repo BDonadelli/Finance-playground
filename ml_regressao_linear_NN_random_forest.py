@@ -2,12 +2,9 @@ import streamlit as st
 import numpy as np
 import pandas as pd
 import yfinance as yf
-import matplotlib.pyplot as plt
-import seaborn as sns
 import plotly.graph_objs as go
 import plotly.express as px
 from plotly.subplots import make_subplots
-from sklearn.preprocessing import MinMaxScaler
 from sklearn.linear_model import LinearRegression
 from sklearn.ensemble import RandomForestRegressor
 import warnings
@@ -15,8 +12,6 @@ from datetime import datetime, timedelta
 
 # Configuration
 warnings.filterwarnings('ignore')
-plt.style.use('default')
-sns.set_palette("husl")
 
 # Streamlit page configuration
 st.set_page_config(
@@ -197,52 +192,93 @@ def forecast_moving_average(data):
         return np.repeat(float(data.iloc[-1]) if len(data) > 0 else 100, 7)
 
 # ===================================================
-# VISUALIZATION FUNCTIONS
+# VISUALIZATION FUNCTIONS (PLOTLY ONLY)
 # ===================================================
 
-def plot_stock_price_matplotlib(data, symbol):
-    """Plot stock price using matplotlib"""
-    fig, axes = plt.subplots(2, 2, figsize=(15, 12))
-    fig.suptitle(f'{symbol.upper()} - Stock Analysis', fontsize=16, fontweight='bold')
+def plot_stock_analysis_plotly(data, symbol):
+    """Plot comprehensive stock analysis using plotly"""
+    # Create subplots
+    fig = make_subplots(
+        rows=2, cols=2,
+        subplot_titles=('Close Price Over Time', 'Trading Volume', 'OHLC Prices', 'Price Distribution'),
+        specs=[[{"secondary_y": False}, {"secondary_y": False}],
+               [{"secondary_y": False}, {"type": "histogram"}]]
+    )
     
-    # Price and Volume
-    axes[0, 0].plot(data['Date'], data['Close'], linewidth=2, label='Close Price')
-    axes[0, 0].set_title('Close Price Over Time')
-    axes[0, 0].set_xlabel('Date')
-    axes[0, 0].set_ylabel('Price ($)')
-    axes[0, 0].grid(True, alpha=0.3)
-    axes[0, 0].tick_params(axis='x', rotation=45)
+    # Close Price
+    fig.add_trace(
+        go.Scatter(x=data['Date'], y=data['Close'], name='Close Price', 
+                  line=dict(color='blue', width=2)), 
+        row=1, col=1
+    )
     
     # Volume
-    axes[0, 1].bar(data['Date'], data['Volume'], alpha=0.7, width=1)
-    axes[0, 1].set_title('Trading Volume')
-    axes[0, 1].set_xlabel('Date')
-    axes[0, 1].set_ylabel('Volume')
-    axes[0, 1].tick_params(axis='x', rotation=45)
+    fig.add_trace(
+        go.Bar(x=data['Date'], y=data['Volume'], name='Volume', 
+               marker_color='lightblue', opacity=0.7), 
+        row=1, col=2
+    )
     
     # OHLC
-    axes[1, 0].plot(data['Date'], data['Open'], label='Open', alpha=0.7)
-    axes[1, 0].plot(data['Date'], data['High'], label='High', alpha=0.7)
-    axes[1, 0].plot(data['Date'], data['Low'], label='Low', alpha=0.7)
-    axes[1, 0].plot(data['Date'], data['Close'], label='Close', linewidth=2)
-    axes[1, 0].set_title('OHLC Prices')
-    axes[1, 0].set_xlabel('Date')
-    axes[1, 0].set_ylabel('Price ($)')
-    axes[1, 0].legend()
-    axes[1, 0].grid(True, alpha=0.3)
-    axes[1, 0].tick_params(axis='x', rotation=45)
+    fig.add_trace(go.Scatter(x=data['Date'], y=data['Open'], name='Open', 
+                            line=dict(color='green', dash='dot')), row=2, col=1)
+    fig.add_trace(go.Scatter(x=data['Date'], y=data['High'], name='High', 
+                            line=dict(color='red', dash='dot')), row=2, col=1)
+    fig.add_trace(go.Scatter(x=data['Date'], y=data['Low'], name='Low', 
+                            line=dict(color='orange', dash='dot')), row=2, col=1)
+    fig.add_trace(go.Scatter(x=data['Date'], y=data['Close'], name='Close', 
+                            line=dict(color='blue', width=2)), row=2, col=1)
     
-    # Price distribution
-    axes[1, 1].hist(data['Close'], bins=30, alpha=0.7, edgecolor='black')
-    axes[1, 1].axvline(data['Close'].mean(), color='red', linestyle='--', 
-                      label=f'Mean: ${data["Close"].mean():.2f}')
-    axes[1, 1].set_title('Price Distribution')
-    axes[1, 1].set_xlabel('Price ($)')
-    axes[1, 1].set_ylabel('Frequency')
-    axes[1, 1].legend()
-    axes[1, 1].grid(True, alpha=0.3)
+    # Price Distribution
+    fig.add_trace(
+        go.Histogram(x=data['Close'], name='Price Distribution', 
+                    marker_color='skyblue', opacity=0.7, nbinsx=30),
+        row=2, col=2
+    )
     
-    plt.tight_layout()
+    # Add mean line to histogram
+    mean_price = data['Close'].mean()
+    fig.add_vline(x=mean_price, line_dash="dash", line_color="red",
+                  annotation_text=f"Mean: ${mean_price:.2f}", row=2, col=2)
+    
+    # Update layout
+    fig.update_layout(
+        title=f'{symbol.upper()} - Comprehensive Stock Analysis',
+        height=800,
+        showlegend=True
+    )
+    
+    # Update axes labels
+    fig.update_xaxes(title_text="Date", row=1, col=1)
+    fig.update_xaxes(title_text="Date", row=1, col=2)
+    fig.update_xaxes(title_text="Date", row=2, col=1)
+    fig.update_xaxes(title_text="Price ($)", row=2, col=2)
+    
+    fig.update_yaxes(title_text="Price ($)", row=1, col=1)
+    fig.update_yaxes(title_text="Volume", row=1, col=2)
+    fig.update_yaxes(title_text="Price ($)", row=2, col=1)
+    fig.update_yaxes(title_text="Frequency", row=2, col=2)
+    
+    return fig
+
+def plot_candlestick_chart(data, symbol):
+    """Create candlestick chart"""
+    fig = go.Figure(data=go.Candlestick(
+        x=data['Date'],
+        open=data['Open'],
+        high=data['High'],
+        low=data['Low'],
+        close=data['Close'],
+        name='OHLC'
+    ))
+    
+    fig.update_layout(
+        title=f'{symbol.upper()} - Candlestick Chart',
+        yaxis_title='Price ($)',
+        xaxis_title='Date',
+        height=600
+    )
+    
     return fig
 
 def plot_forecasts_plotly(data, forecasts_dict, symbol):
@@ -331,14 +367,14 @@ def main():
     col1, col2 = st.sidebar.columns(2)
     
     with col1:
-        start_date = st.date_input(
+        start_date = st.sidebar.date_input(
             "Start Date",
             value=datetime(2021, 1, 1),
             max_value=datetime.now()
         )
     
     with col2:
-        end_date = st.date_input(
+        end_date = st.sidebar.date_input(
             "End Date",
             value=datetime.now(),
             max_value=datetime.now()
@@ -349,6 +385,7 @@ def main():
     st.sidebar.header("📋 Analysis Options")
     
     show_basic_analysis = st.sidebar.checkbox("Show Basic Analysis", value=True)
+    show_candlestick = st.sidebar.checkbox("Show Candlestick Chart", value=True)
     show_moving_averages = st.sidebar.checkbox("Show Moving Averages", value=True)
     show_forecasts = st.sidebar.checkbox("Show Forecasts", value=True)
     
@@ -387,13 +424,21 @@ def main():
             st.markdown("---")
             st.header("📊 Basic Stock Analysis")
             
-            fig = plot_stock_price_matplotlib(data, symbol)
-            st.pyplot(fig)
+            fig = plot_stock_analysis_plotly(data, symbol)
+            st.plotly_chart(fig, use_container_width=True)
             
             # Recent data table
             st.subheader("📋 Recent Trading Data")
             recent_data = data[['Date', 'Open', 'High', 'Low', 'Close', 'Volume']].tail(10)
             st.dataframe(recent_data, use_container_width=True)
+        
+        # Candlestick Chart
+        if show_candlestick:
+            st.markdown("---")
+            st.header("🕯️ Candlestick Chart")
+            
+            fig_candle = plot_candlestick_chart(data, symbol)
+            st.plotly_chart(fig_candle, use_container_width=True)
         
         # Moving Averages
         if show_moving_averages and len(data) >= 20:
@@ -508,7 +553,5 @@ def main():
             summary_df = pd.DataFrame(summary_data)
             st.dataframe(summary_df, use_container_width=True)
             
-         
-
 if __name__ == "__main__":
     main()

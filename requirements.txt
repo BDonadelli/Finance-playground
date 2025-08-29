@@ -1,6 +1,5 @@
 yfinance
-matplotlib
-seaborn
+scikit-learn
 plotly
-sklearn
-warnings
+pandas
+numpy
