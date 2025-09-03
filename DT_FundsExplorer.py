@@ -79,6 +79,20 @@ def dadosFE (setdriver=False) :
 
      df=tabelas_html[0]
      
+     def converter_valor(x):
+        if pd.isna(x) or x == 'N/A':
+            return np.nan
+        x = str(x)
+        if ',' in x:  # formato brasileiro
+            x = x.replace('.', '').replace(',', '.')
+            return float(x)
+        else:  # sem vírgula → interpretar como centavos implícitos
+            return float(x) / 100
+
+     df['Preço Atual (R$)'] = df['Preço Atual (R$)'].apply(converter_valor).apply(lambda x: str(x).replace('.', ','))
+     df['Último Dividendo'] = df['Último Dividendo'].apply(converter_valor).apply(lambda x: str(x).replace('.', ','))
+     df['VPA'] = df['VPA'].apply(converter_valor).apply(lambda x: str(x).replace('.', ','))
+     df['P/VP'] = df['P/VP'].apply(converter_valor).apply(lambda x: str(x).replace('.', ','))     
      driver.close()
      # Limpar dados antes de retornar
      df = limpar_dados_para_json(df)
