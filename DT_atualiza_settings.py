@@ -27,6 +27,11 @@ gc = gspread.authorize(credentials)
 
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.chrome.service import Service
+
+service = Service(ChromeDriverManager().install())
+
 
 opts = webdriver.ChromeOptions()
 opts.add_experimental_option("detach", True)

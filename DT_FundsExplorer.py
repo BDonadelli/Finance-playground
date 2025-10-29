@@ -4,6 +4,7 @@ import pandas as pd
 import numpy as np
 from datetime import date
 today = date.today().strftime('%d/%m/%Y')
+import subprocess
 
 
 def limpar_dados_para_json(df):
@@ -50,8 +51,11 @@ def dadosFE (setdriver=False) :
           driver.switch_to.default_content()
      except:
           print('não achei iframe')
+
+          subprocess.run(["paplay", "/usr/share/sounds/freedesktop/stereo/complete.oga"])
+        
           print('FECHE NA MÃO')
-          sleep(5)
+          sleep(7)
 
      print(" ====== Rola pagina")
 
