@@ -363,9 +363,9 @@ def main():
     symbol = st.sidebar.text_input(
         "Símbolo da Ação", 
         value="WEGE3.SA",
-        help="Digite o símbolo da ação (ex.: AAPL, GOOGL, WEGE3.SA)"
+        help="Digite o símbolo da ação (ex.: GOOGL, WEGE3.SA)"
     )
-    
+    symbol =symbol.lower()
     # Entradas de data
     col1, col2 = st.sidebar.columns(2)
     
