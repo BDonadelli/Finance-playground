@@ -3,6 +3,7 @@ pass*txt
 dic*.md
 c*.json
 login*txt
+cvm_zipped
 
 # Arquivos de backup e temporários (gerados por editores)
 *~
