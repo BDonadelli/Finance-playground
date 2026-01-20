@@ -4,7 +4,7 @@ from datetime import datetime
 
 def feriados(inicio:datetime , fim:datetime): 
 
-    url='https://raw.githubusercontent.com/BDonadelli/Codigos-em-financas/main/data/feriados.csv'
+    url='https://raw.githubusercontent.com/BDonadelli/Finance-Playground/main/data/feriados.csv'
     feriado = pd.read_csv(url)
     feriado['Data'] =  pd.to_datetime(feriado['Data'], format='%d/%m/%Y')
     feriado.set_index(feriado.Data, inplace=True)
