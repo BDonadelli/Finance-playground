@@ -20,7 +20,13 @@ from oauth2client.service_account import ServiceAccountCredentials
 scope = ['https://www.googleapis.com/auth/drive','https://www.googleapis.com/auth/spreadsheets']
 jfile = 'carteira-328314-d38dcc8ee3e4.json'
 
-credentials = ServiceAccountCredentials.from_json_keyfile_name(jfile, scope)
+try:
+  credentials = ServiceAccountCredentials.from_json_keyfile_name(jfile, scope)
+except:
+  jfile = 'carteira-328314-2248cd9489bb.json'
+  credentials = ServiceAccountCredentials.from_json_keyfile_name(jfile, scope)
+
+  
 gc = gspread.authorize(credentials)
 
 ## - selenium -----------------
