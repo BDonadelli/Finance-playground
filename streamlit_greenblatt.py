@@ -60,7 +60,6 @@ usar_cresc  = st.sidebar.checkbox("Cresc. Rec. 5a > 0  (crescimento de receita)"
 
 st.sidebar.markdown("---")
 top_n = st.sidebar.slider("Top N ações para exibir", min_value=5, max_value=50, value=15)
-
 # ---------------------------------------------------------------------------
 # Carregar dados do GitHub
 # ---------------------------------------------------------------------------
@@ -73,7 +72,7 @@ def load_data():
             return float("nan")
 
     url = "https://raw.githubusercontent.com/BDonadelli/TD/refs/heads/main/data/fundamentuspp.csv"
-    df = pd.read_csv(url, sep=";", decimal=",", thousands=".", encoding="utf-8")
+    df = pd.read_csv(url, sep=";", decimal=".", thousands=",", encoding="utf-8")
 
     pct_cols = ["ROE", "ROIC", "Div.Yield", "Mrg Ebit", "Mrg. Líq.", "Cresc. Rec.5a"]
     for c in pct_cols:
