@@ -1,5 +1,4 @@
-yfinance
-scikit-learn
-plotly
-pandas
+lxml
 numpy
+pandas
+requests
