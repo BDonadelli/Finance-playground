@@ -1,3 +1,6 @@
+import warnings
+warnings.filterwarnings('ignore')
+
 import numpy as np
 import pandas as pd
 import streamlit as st
@@ -67,21 +70,45 @@ top_n = st.sidebar.slider("Top N ações para exibir", min_value=5, max_value=50
 @st.cache_data(ttl=3600)
 def load_data():
     import requests
+    import io
 
     def pct_to_float(number):
-        return float(number.strip("%").replace(".", "").replace(",", "."))
+        try:
+            return float(str(number).strip("%").replace(".", "").replace(",", "."))
+        except Exception:
+            return float("nan")
 
-    header = {
-        "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.75 Safari/537.36",
-        "X-Requested-With": "XMLHttpRequest",
-    }
-    r = requests.get("https://www.fundamentus.com.br/resultado.php", headers=header)
+    session = requests.Session()
+    session.headers.update({
+        "User-Agent": (
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+            "AppleWebKit/537.36 (KHTML, like Gecko) "
+            "Chrome/120.0.0.0 Safari/537.36"
+        ),
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        "Accept-Language": "pt-BR,pt;q=0.9,en-US;q=0.8,en;q=0.7",
+        "Accept-Encoding": "gzip, deflate, br",
+        "Connection": "keep-alive",
+        "Referer": "https://www.fundamentus.com.br/",
+    })
+
+    # Primeira visita para obter cookies
+    session.get("https://www.fundamentus.com.br/", timeout=15)
+
+    r = session.get(
+        "https://www.fundamentus.com.br/resultado.php",
+        timeout=15,
+    )
+    r.encoding = "ISO-8859-1"
+
+    if "<table" not in r.text:
+        raise ValueError("Fundamentus não retornou tabela — possível bloqueio ou site fora do ar.")
+
     funda = pd.read_html(
-        r.text,
+        io.StringIO(r.text),
         index_col="Papel",
         decimal=",",
         thousands=".",
-        encoding="ISO-8859-1",
         converters={
             "ROE":           pct_to_float,
             "ROIC":          pct_to_float,
@@ -96,7 +123,7 @@ def load_data():
 with st.spinner("Carregando dados do Fundamentus..."):
     try:
         dados = load_data()
-        st.success(f"Dados carregados.")
+        st.success(f"Dados carregados — {len(dados)} ações encontradas.")
     except Exception as e:
         st.error(f"Erro ao carregar dados: {e}")
         st.stop()
