@@ -55,7 +55,7 @@ st.sidebar.markdown("---")
 
 usar_pl_pos = st.sidebar.checkbox("P/L > 0  (sem prejuízo atual)",                value=False)
 usar_pl_max = st.sidebar.checkbox("P/L < 30  (não excessivamente cara)",           value=False)
-usar_div    = st.sidebar.checkbox("Dív.Brut/Patrim. < 3 (endividamento controlado)", value=False)
+usar_div    = st.sidebar.checkbox("Dív.Brut/Patrim. < 1.5 (endividamento controlado)", value=False)
 usar_cresc  = st.sidebar.checkbox("Cresc. Rec. 5a > 0  (crescimento de receita)",  value=False)
 
 st.sidebar.markdown("---")
@@ -123,7 +123,7 @@ if usar_pl_pos:
 if usar_pl_max:
     funds = funds[funds["P/L"] < 30]
 if usar_div:
-    funds = funds[funds["Dív.Brut/ Patrim."] < 3]
+    funds = funds[funds["Dív.Brut/ Patrim."] < 1.5]
 if usar_cresc:
     funds = funds[funds["Cresc. Rec.5a"] > 0]
 

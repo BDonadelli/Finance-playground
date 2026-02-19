@@ -103,7 +103,7 @@ if usar_cagr:
 
 resultado = dados[criterios].copy()
 
-delisted = ['SOMA3', 'JBSS3', 'OIBR3']
+delisted = ['SOMA3', 'JBSS3', 'OIBR3' , 'PETZ3' , ]
 resultado = resultado[~resultado['TICKER'].isin(delisted)]
 
 # --- Calcular Preço Graham e Delta ---
