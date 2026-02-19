@@ -114,10 +114,10 @@ resultado.sort_values(by="Rank", ascending=False, inplace=True)
 
 # --- Exibir métricas resumo ---
 st.markdown("---")
-col1, col2, col3 = st.columns(3)
-col1.metric("Ações encontradas", len(resultado))
-col2.metric("Maior valorização potencial", f"{resultado['Valorização (%)'].max():.1f}%" if len(resultado) else "—")
-col3.metric("Valorização média (Top)", f"{resultado['Valorização (%)'].head(top_n).mean():.1f}%" if len(resultado) else "—")
+# col1, col2, col3 = st.columns(3)
+# col1.metric("Ações encontradas", len(resultado))
+# col2.metric("Maior valorização potencial", f"{resultado['Valorização (%)'].max():.1f}%" if len(resultado) else "—")
+# col3.metric("Valorização média (Top)", f"{resultado['Valorização (%)'].head(top_n).mean():.1f}%" if len(resultado) else "—")
 
 # --- Tabela ---
 st.markdown(f"### 🏆 Top {top_n} Ações por Potencial de Valorização (Fórmula de Graham)")
