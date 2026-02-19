@@ -175,7 +175,7 @@ with st.expander("ℹ️ Sobre a Fórmula de Graham"):
 
     **Critérios de filtragem:**
     - LPA e VPA sempre devem ser positivos
-    - Liquidez média diária acima do mínimo configurado (se ativado)
+    - Liquidez média diária acima do mínimo configurado (se ativado marcando a caixa no painel lateral)
     - ROE acima do mínimo (se ativado)
     - Dívida Líquida/EBIT abaixo do máximo  (se ativado)
     - CAGR de lucros acima do mínimo (se ativado)
