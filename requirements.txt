@@ -2,3 +2,7 @@ lxml
 numpy
 pandas
 requests
+plotly
+yfinance
+matplotlib
+scikit-learn
