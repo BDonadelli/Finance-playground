@@ -1,6 +1,3 @@
-
-
-
 import streamlit as st
 import numpy as np
 import pandas as pd
@@ -28,7 +25,6 @@ st.set_page_config(
 # FUNÇÕES UTILITÁRIAS
 # ===================================================
 
-@st.cache_data
 def calculate_moving_average(data, window_size):
     """Calcular média móvel para o tamanho de janela fornecido"""
     return data.rolling(window=window_size).mean()
@@ -561,4 +557,3 @@ def main():
             
 if __name__ == "__main__":
     main()
-
