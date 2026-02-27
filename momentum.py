@@ -2,7 +2,7 @@ import yfinance as yf
 import pandas as pd
 import matplotlib.pyplot as plt
 
-# --- Baixar dados ---
+# --- Baixar dados ---pi p
 ticker = "ABCB4.SA"
 dados = yf.download(ticker, period="3mo")
 

@@ -61,19 +61,19 @@ for url in URLs :
 print('Destaques de hoje')
 
 codigos = soup.find_all("strong")
-# print(codigos)
+print(codigos)
 
 for codigo in codigos:
-    # print(codigo)
+    print(codigo)
     if codigo.text.strip() != 'Entrealtasebaixas.com.br':
           
       # Extrai o texto do elemento 'strong' (por exemplo, 'BRSR6')
       codigo_texto = codigo.text.strip()
-      # print(codigo_texto)
+      print(codigo_texto)
 
       import re
       texto_apos_strong = re.search(r"</strong>(.*)", str(codigo.parent)).group(1).strip()
-      # print(texto_apos_strong)
+      print(texto_apos_strong)
 
       print(f"\n{codigo_texto} {texto_apos_strong}")
       print()
