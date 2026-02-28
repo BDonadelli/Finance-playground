@@ -1,118 +1,176 @@
-from DT_atualiza_settings import *
-from time import sleep
 import pandas as pd
 import numpy as np
 from datetime import date
-today = date.today().strftime('%d/%m/%Y')
-import subprocess
+from time import sleep
+import os
+from io import StringIO
 
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.chrome.options import Options
+from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.common.exceptions import TimeoutException, NoSuchElementException
 
-def limpar_dados_para_json(df):
+def scrape_fundsexplorer_selenium():
     """
-    Limpa o DataFrame removendo valores que não são compatíveis com JSON
+    Função de scraping usando Selenium
     """
-    # Fazer uma cópia para não modificar o original
-    df_clean = df.copy()
     
-    # Substituir valores infinitos e NaN por strings ou valores válidos
-    df_clean = df_clean.replace([np.inf, -np.inf], 'N/A')
-    df_clean = df_clean.fillna('N/A')
+    print("="*46)
+    print(" - Iniciando scraping do FundsExplorer.com ...")
+    print("="*46)
+
+    # Configura Chrome
+    chrome_options = Options()
+    chrome_options.add_argument('--no-sandbox')
+    chrome_options.add_argument('--disable-dev-shm-usage')
+    chrome_options.add_argument('--disable-blink-features=AutomationControlled')
+    chrome_options.add_argument('--start-maximized')
+    chrome_options.add_argument('user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36')
+    # chrome_options.add_argument('--headless=new')  # Descomente para modo headless
     
-    # Converter todas as colunas para string para evitar problemas de tipo
-    for col in df_clean.columns:
-        df_clean[col] = df_clean[col].astype(str)
+    service = Service(ChromeDriverManager().install())
+    driver = webdriver.Chrome(service=service, options=chrome_options)
+    driver.implicitly_wait(10)
+    wait = WebDriverWait(driver, 20)
     
-    return df_clean
-
-
-def dadosFE (setdriver=False) :
-
-     if setdriver :
-          driver=webdriver.Chrome(options=opts)
+    try:
+        # Acessa a página
+        print("🌐 Acessando FundsExplorer ranking")
+        driver.get("https://www.fundsexplorer.com.br/ranking")
+        sleep(3)
         
-     driver.get("https://www.fundsexplorer.com.br/ranking")
-     sleep(10)
-     fecha_prop_path='//*[@id="hs-eu-confirmation-button"]'
-     try : 
-          driver.find_element(By.XPATH,fecha_prop_path).click()
-     except:   
-          print('não achei o 1o elemento para fechar')
-     sleep(10)
-
-#-------------# para apagar propaganda popup
-     try:
-          #-------------# Muda o contexto para o iframe 
-          iframe_element = driver.find_element(By.XPATH, "//iframe[@title='Popup CTA']")
-          driver.switch_to.frame(iframe_element)
-          # Encontra o botão "X" dentro do iframe
-          close_button = driver.find_element(By.XPATH, "/html/body/div/div[1]")
-          close_button.click()
-          # Volte para o contexto principal
-          driver.switch_to.default_content()
-     except:
-          print('não achei iframe')
-
-          subprocess.run(["paplay", "/usr/share/sounds/freedesktop/stereo/complete.oga"])
+        # Fecha popup de cookies
+        print("🍪 Fechando popup de cookies...")
+        try:
+            cookie_button = wait.until(
+                EC.element_to_be_clickable((By.XPATH, '//*[@id="hs-eu-confirmation-button"]'))
+            )
+            cookie_button.click()
+            print("✅ Cookie aceito!")
+            sleep(2)
+        except TimeoutException:
+            print("⚠️  Botão de cookie não encontrado")
         
-          print('FECHE NA MÃO')
-          sleep(7)
+        # Fecha popup de propaganda
+        print("🚫 Tentando fechar popup de propaganda...")
+        try:
+            iframe_element = driver.find_element(By.XPATH, "//iframe[@title='Popup CTA']")
+            driver.switch_to.frame(iframe_element)
+            close_button = driver.find_element(By.XPATH, "/html/body/div/div[1]")
+            close_button.click()
+            driver.switch_to.default_content()
+            print("✅ Popup fechado!")
+            sleep(2)
+        except (NoSuchElementException, TimeoutException):
+            print("⚠️  Popup não encontrado - FECHE MANUALMENTE se aparecer")
+            driver.switch_to.default_content()
+            sleep(5)
+        
+        # Rola a página
+        print(" - Rolando a página...")
+        driver.execute_script("window.scrollBy(0, 500);")
+        sleep(2)
+        
+        # Seleciona todas as colunas
+        print(" - Selecionando todas as colunas...")
+        try:
+            columns_button = wait.until(
+                EC.element_to_be_clickable((By.XPATH, '//*[@id="colunas-ranking__select-button"]'))
+            )
+            columns_button.click()
+            sleep(2)
+            
+            all_columns_option = wait.until(
+                EC.element_to_be_clickable((By.XPATH, '/html/body/div[7]/div[1]/div/div[2]/div[2]/ul/li[1]/label'))
+            )
+            all_columns_option.click()
+            sleep(3)
+            print("✅ Todas as colunas selecionadas!")
+        except TimeoutException as e:
+            print(f"⚠️  Erro ao selecionar colunas: {e}")
+        
+        # Extrai a tabela
+        print(" - Extraindo dados da tabela...")
+        html_str = driver.page_source
+        tabelas_html = pd.read_html(StringIO(html_str))
+        
+        if len(tabelas_html) == 0:
+            raise Exception("❌ Nenhuma tabela encontrada na página!")
+        
+        df = tabelas_html[0]
+        print(f"✅ Tabela extraída! {len(df)} fundos encontrados")
+        
+        return df
+        
+    except Exception as e:
+        print(f"❌ Erro durante o scraping: {e}")
+        driver.save_screenshot("error_screenshot_selenium.png")
+        print("📸 Screenshot do erro salvo")
+        raise
+        
+    finally:
+        print("🔒 Fechando navegador...")
+        driver.quit()
 
-     print(" ====== Rola pagina")
+df = pd.DataFrame()
+try:
+    df = scrape_fundsexplorer_selenium()
+    print("\n🎉 Sucesso! Dados extraídos com Selenium!")
+except Exception as e:
+    print(f"\n💥 Falha no scraping: {e}")
 
-     # Scroll up the window by a specific number of pixels
-     # For example, scroll up by 200 pixels
-     scroll_distance = 500
-     # print('111')
-     driver.execute_script(f"window.scrollBy(0, {scroll_distance});")
-     # print('222')
-     sleep(2)
-     
-     print(" ====== Escolhe todas as colunas ")
-     
-     driver.find_element(By.XPATH,'//*[@id="colunas-ranking__select-button"]').click()
-     sleep(2)
-     driver.find_element(By.XPATH,'/html/body/div[7]/div[1]/div/div[2]/div[2]/ul/li[1]/label').click()
-     sleep(2)
-     
-     print(" ====== lê a tabela ")
+def converter_valor(x):
+    """Converte valores do formato brasileiro para float"""
+    if pd.isna(x) or x == 'N/A':
+        return np.nan
+    x = str(x)
+    if ',' in x:  # formato brasileiro
+        x = x.replace('.', '').replace(',', '.')
+        return float(x)
+    else:  # sem vírgula → interpretar como centavos implícitos
+        return float(x) / 100
 
-     from io import StringIO
+# df = df_copia.copy()
+df['Preço Atual (R$)'] = df['Preço Atual (R$)'].apply(converter_valor)
+df['Liquidez Diária (R$)'] = df['Liquidez Diária (R$)'].apply(converter_valor)
+df['P/VP'] = df['P/VP'].apply(converter_valor)
+df['Último Dividendo'] = df['Último Dividendo'].apply(converter_valor)
+df['Volatilidade'] = df['Volatilidade'].apply(converter_valor)
+df = df.replace([np.inf, -np.inf], 'N/A')
+df = df.fillna('N/A')
 
-     html_str = driver.page_source
-     tabelas_html = pd.read_html(StringIO(html_str))
+df.head(10)
 
-     df=tabelas_html[0]
-     
-     def converter_valor(x):
-        if pd.isna(x) or x == 'N/A':
-            return np.nan
-        x = str(x)
-        if ',' in x:  # formato brasileiro
-            x = x.replace('.', '').replace(',', '.')
-            return float(x)
-        else:  # sem vírgula → interpretar como centavos implícitos
-            return float(x) / 100
+def dadosInfra () :
 
-     df['Preço Atual (R$)'] = df['Preço Atual (R$)'].apply(converter_valor).apply(lambda x: str(x).replace('.', ','))
-     df['Último Dividendo'] = df['Último Dividendo'].apply(converter_valor).apply(lambda x: str(x).replace('.', ','))
-     df['VPA'] = df['VPA'].apply(converter_valor).apply(lambda x: str(x).replace('.', ','))
-     df['P/VP'] = df['P/VP'].apply(converter_valor).apply(lambda x: str(x).replace('.', ','))     
-     driver.close()
-     # Limpar dados antes de retornar
-     df = limpar_dados_para_json(df)
-     
-     return df
-
-def dadosInfra (setdriver=False) :
-
-    if setdriver :
-        driver=webdriver.Chrome(options=opts)
+    print("="*46)
+    print(" - Iniciando scraping do Investidor10.com ...")
     
+
+    # Configura Chrome
+    chrome_options = Options()
+    chrome_options.add_argument('--no-sandbox')
+    chrome_options.add_argument('--disable-dev-shm-usage')
+    chrome_options.add_argument('--disable-blink-features=AutomationControlled')
+    chrome_options.add_argument('--start-maximized')
+    chrome_options.add_argument('user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36')
+    # chrome_options.add_argument('--headless=new')  # Descomente para modo headless
+    
+    service = Service(ChromeDriverManager().install())
+    driver = webdriver.Chrome(service=service, options=chrome_options)
+    driver.implicitly_wait(10)
+    wait = WebDriverWait(driver, 20)
+    
+ 
     xpath1='//*[@id="table-indicators"]/div[12]/div[2]/div/span'
     xpath2='//*[@id="table-indicators"]/div[14]/div[2]/div'
     xpath3='//*[@id="cards-ticker"]/div[2]/div[2]/div/span'
 
-    print(" ======  JURO11 ")
+    print(" = scraping JURO11 ")
 
     # driver.get("https://data.anbima.com.br/fundos/627127")
     driver.get("https://investidor10.com.br/fiis/juro11/")
@@ -123,7 +181,7 @@ def dadosInfra (setdriver=False) :
     juro11_div = driver.find_element(By.XPATH,xpath2).text
     juro11_dy = driver.find_element(By.XPATH,xpath3).text
 
-    print(" ======  BIDB11 ")
+    print(" = scraping BIDB11 ")
 
     # driver.get("https://data.anbima.com.br/fundos/617350")
     driver.get("https://investidor10.com.br/fiis/bidb11/")
@@ -133,7 +191,7 @@ def dadosInfra (setdriver=False) :
     bidb11_div = driver.find_element(By.XPATH,xpath2).text
     bidb11_dy = driver.find_element(By.XPATH,xpath3).text
 
-    print(" ======  CPTI11 ")
+    print(" = scraping CPTI11 ")
 
     # driver.get("https://data.anbima.com.br/fundos/617350")
     driver.get("https://investidor10.com.br/fiis/cpti11/")
@@ -144,74 +202,93 @@ def dadosInfra (setdriver=False) :
     cpti11_dy = driver.find_element(By.XPATH,xpath3).text
 
     driver.close()
+    print("="*46)
 
     return juro11_vpa,juro11_div,juro11_dy,bidb11_vpa, bidb11_div, bidb11_dy ,cpti11_vpa , cpti11_div , cpti11_dy
 
 
+# print(" ====== Escreve na planilha")
+# # from DT_atualiza_settings import *
+today = date.today().strftime("%d/%m/%Y")
 
-if __name__ == "__main__":
+import gspread
+from google.oauth2.service_account import Credentials
 
-     print(" ====== Funds Explorer ===== ")
+scope = [
+    "https://www.googleapis.com/auth/spreadsheets",
+    "https://www.googleapis.com/auth/drive"
+]
 
-     df = dadosFE(True)
-     
-     print(" ====== Escreve na planilha")
+creds = Credentials.from_service_account_file(
+    # "/home/yair/GHub/Finance-playground/carteira-328314-2248cd9489bb.json",
+    "/home/yair/GHub/Finance-playground/carteira-328314-d38dcc8ee3e4.json",
+    scopes=scope
+)
 
-     try:
-         planilha = gc.open('Investimentos')
-         pagina = planilha.worksheet("FundsExp")
-         pagina.clear()
+gc = gspread.authorize(creds)
 
-         pagina.update(range_name= 'a1',values= [[today]])
-         
-         # Preparar dados para envio
-         dados_para_envio = [df.columns.values.tolist()] + df.values.tolist()
-         
-         # Debug: mostrar os primeiros valores para verificar se há problemas
-         print("Primeiras linhas dos dados:")
-         for i, linha in enumerate(dados_para_envio[:3]):  # Mostra apenas as 3 primeiras linhas
-             print(f"Linha {i}: {linha[:5]}...")  # Mostra apenas os primeiros 5 valores
-         
-         pagina.update(range_name='a2', values=dados_para_envio)
-         
-         print(" ====== Funds Explorer terminou com sucesso")
-         
-     except Exception as e:
-         print(f" ====== Erro ao escrever na planilha: {e}")
-         print(" ====== Salvando dados localmente como backup")
-         df.to_csv(f'backup_fundsexplorer_{today.replace("/", "_")}.csv', index=False)
 
-     print(" ====== FI-Infra ===== ")
 
-     try:
-         juro11_vpa,juro11_div,juro11_dy,bidb11_vpa, bidb11_div, bidb11_dy ,cpti11_vpa , cpti11_div , cpti11_dy = dadosInfra(True)
+try:
+    planilha = gc.open('Investimentos')
+    pagina = planilha.worksheet("FundsExp")
+    # pagina = planilha.worksheet("Cópia de FundsExp")
+    pagina.clear()
 
-         print(" ====== Escreve na planilha")
+    pagina.update(range_name= 'a1',values= [[today]])
+    
+    # Preparar dados para envio
+    dados_para_envio = [df.columns.values.tolist()] + df.values.tolist()
+    
+    # Debug: mostrar os primeiros valores para verificar se há problemas
+    print("Primeiras linhas dos dados:")
+    for i, linha in enumerate(dados_para_envio[:3]):  # Mostra apenas as 3 primeiras linhas
+        print(f"Linha {i}: {linha[:5]}...")  # Mostra apenas os primeiros 5 valores
+    
+    pagina.update(range_name='a2', values=dados_para_envio)
+    
+    print(" ====== Funds Explorer terminou com sucesso")
+    
+except Exception as e:
+    print(f" ====== Erro ao escrever na planilha: {e}")
+    print(" ====== Salvando dados localmente como backup")
+    df.to_csv(f'backup_fundsexplorer_{today.replace("/", "_")}.csv', index=False)
 
-         planilha = gc.open('Investimentos')
-         pagina = planilha.worksheet('FundsExp')
-           
-         pagina.update(range_name='b1',values= [["juro11 (VPA,Prov,DY)"]])
-         pagina.update(range_name='c1',values= [[juro11_vpa]])
-         pagina.update(range_name='d1',values= [[juro11_div]])
-         pagina.update(range_name='e1',values= [[juro11_dy]])
-         pagina.update(range_name='f1',values= [["bidb11 (VPA,Prov,DY)"]])
-         pagina.update(range_name='g1',values= [[bidb11_vpa]])
-         pagina.update(range_name='h1',values= [[bidb11_div]])
-         pagina.update(range_name='i1',values= [[bidb11_dy]])
-         pagina.update(range_name='j1',values= [["cpti11 (VPA,Prov,DY)"]])
-         pagina.update(range_name='k1',values= [[cpti11_vpa]])
-         pagina.update(range_name='l1',values= [[cpti11_div]])
-         pagina.update(range_name='m1',values= [[cpti11_dy]])
 
-         print(" ====== FI-Infra Terminou")
-         
-     except Exception as e:
-         print(f" ====== Erro na seção FI-Infra: {e}")
-     
-     finally:
-         # Certificar que o driver é fechado mesmo em caso de erro
-         try:
-             driver.close()
-         except:
-             pass
+
+print(" ====== FI-Infra ===== ")
+
+try:
+    juro11_vpa,juro11_div,juro11_dy,bidb11_vpa, bidb11_div, bidb11_dy ,cpti11_vpa , cpti11_div , cpti11_dy = dadosInfra()
+
+    print(" ====== Escreve na planilha")
+
+    planilha = gc.open('Investimentos')
+    pagina = planilha.worksheet('FundsExp')
+    # pagina = planilha.worksheet("Cópia de FundsExp")
+
+    pagina.update(range_name='b1',values= [["juro11 (VPA,Prov,DY)"]])
+    pagina.update(range_name='c1',values= [[juro11_vpa]])
+    pagina.update(range_name='d1',values= [[juro11_div]])
+    pagina.update(range_name='e1',values= [[juro11_dy]])
+    pagina.update(range_name='f1',values= [["bidb11 (VPA,Prov,DY)"]])
+    pagina.update(range_name='g1',values= [[bidb11_vpa]])
+    pagina.update(range_name='h1',values= [[bidb11_div]])
+    pagina.update(range_name='i1',values= [[bidb11_dy]])
+    pagina.update(range_name='j1',values= [["cpti11 (VPA,Prov,DY)"]])
+    pagina.update(range_name='k1',values= [[cpti11_vpa]])
+    pagina.update(range_name='l1',values= [[cpti11_div]])
+    pagina.update(range_name='m1',values= [[cpti11_dy]])
+
+    print(" ====== FI-Infra Terminou")
+    
+except Exception as e:
+    print(f" ====== Erro na seção FI-Infra: {e}")
+
+# finally:
+#     # Certificar que o driver é fechado mesmo em caso de erro
+#     try:
+#         driver.close()
+#     except:
+#         pass
+
