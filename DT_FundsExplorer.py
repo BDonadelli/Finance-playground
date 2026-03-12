@@ -13,7 +13,7 @@ from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException, NoSuchElementException
-
+##---------------------------------------------------------------------------------
 def scrape_fundsexplorer_selenium():
     """
     Função de scraping usando Selenium
@@ -115,6 +115,7 @@ def scrape_fundsexplorer_selenium():
     finally:
         print("🔒 Fechando navegador...")
         driver.quit()
+##---------------------------------------------------------------------------------
 
 df = pd.DataFrame()
 try:
@@ -122,29 +123,55 @@ try:
     print("\n🎉 Sucesso! Dados extraídos com Selenium!")
 except Exception as e:
     print(f"\n💥 Falha no scraping: {e}")
-
+##---------------------------------------------------------------------------------
 def converter_valor(x):
     """Converte valores do formato brasileiro para float"""
     if pd.isna(x) or x == 'N/A':
         return np.nan
     x = str(x)
+    if 'R$' in x : x = x.replace('R$', '').strip()
     if ',' in x:  # formato brasileiro
         x = x.replace('.', '').replace(',', '.')
-        return float(x)
+        return round(float(x),2)
     else:  # sem vírgula → interpretar como centavos implícitos
-        return float(x) / 100
+        return round(float(x) / 100,2)
+    
+def converter_porcento(x):
+    """Converte valores em porcentagem para float"""
+    if pd.isna(x) or x == 'N/A':
+        return np.nan
+    x = str(x).strip()
+    x = x.replace('%', '').replace(' a.a', '').strip()  # remove % e A.A
+    if not x:
+        return np.nan
+    if ',' in x:  # formato brasileiro
+        x = x.replace('.', '').replace(',', '.')
 
-# df = df_copia.copy()
-df['Preço Atual (R$)'] = df['Preço Atual (R$)'].apply(converter_valor)
-df['Liquidez Diária (R$)'] = df['Liquidez Diária (R$)'].apply(converter_valor)
-df['P/VP'] = df['P/VP'].apply(converter_valor)
-df['Último Dividendo'] = df['Último Dividendo'].apply(converter_valor)
-df['Volatilidade'] = df['Volatilidade'].apply(converter_valor)
+    return float(x) #/ 100    
+    
+##---------------------------------------------------------------------------------
+estrigues = ['Fundos' , 'Setor']
+for x in estrigues : df[x] = df[x].astype('string')
+
+reais = ['Preço Atual (R$)','Último Dividendo', 'Liquidez Diária (R$)', 'Volatilidade' , 'VPA' , 'P/VP']
+for x in reais : df[x] = df[x].apply(converter_valor)
+
+porcentagens = ['Dividend Yield', 'DY (3M) Acumulado', 'DY (6M) Acumulado', 'DY (12M) Acumulado', 'DY (3M) média', 'DY (6M) média', 
+                'DY (12M) média', 'DY Ano' ,
+                'Variação Preço' , 'Rentab. Período' , 'Rentab. Acumulada' ,
+                'DY Patrimonial' , 'Variação Patrimonial' , 'Rentab. Patr. Período' , 'Rentab. Patr. Acumulada' ,
+                'Tax. Gestão' , 'Tax. Performance' , 'Tax. Administração'    ]
+for col in porcentagens : 
+    df[col] = df[col].apply(converter_porcento)
+    if 'Tax.' in col : df.rename(columns={ col : col+' (%aa)'}, inplace=True)
+    else : df.rename(columns={ col : col+' (%)'}, inplace=True)
+    
+df['Num. Cotistas'] = df['Num. Cotistas'].str.replace('.', '', regex=False).astype('Int64')
+
+df['P/VPA'] = df['P/VPA']/100
 df = df.replace([np.inf, -np.inf], 'N/A')
 df = df.fillna('N/A')
-
-df.head(10)
-
+##---------------------------------------------------------------------------------
 def dadosInfra () :
 
     print("="*46)
@@ -177,9 +204,10 @@ def dadosInfra () :
 
     sleep(3)
 
-    juro11_vpa = driver.find_element(By.XPATH,xpath1).text
-    juro11_div = driver.find_element(By.XPATH,xpath2).text
-    juro11_dy = driver.find_element(By.XPATH,xpath3).text
+    juro11_vpa = converter_valor(driver.find_element(By.XPATH,xpath1).text)
+    juro11_div = converter_valor(driver.find_element(By.XPATH,xpath2).text)
+    juro11_dy = converter_porcento(driver.find_element(By.XPATH,xpath3).text)
+    
 
     print(" = scraping BIDB11 ")
 
@@ -187,24 +215,25 @@ def dadosInfra () :
     driver.get("https://investidor10.com.br/fiis/bidb11/")
     sleep(3)
 
-    bidb11_vpa = driver.find_element(By.XPATH,xpath1).text
-    bidb11_div = driver.find_element(By.XPATH,xpath2).text
-    bidb11_dy = driver.find_element(By.XPATH,xpath3).text
-
+    bidb11_vpa = converter_valor(driver.find_element(By.XPATH,xpath1).text)
+    bidb11_div = converter_valor(driver.find_element(By.XPATH,xpath2).text)
+    bidb11_dy = converter_porcento(driver.find_element(By.XPATH,xpath3).text)
+    
     print(" = scraping CPTI11 ")
 
     # driver.get("https://data.anbima.com.br/fundos/617350")
     driver.get("https://investidor10.com.br/fiis/cpti11/")
     sleep(3)
 
-    cpti11_vpa = driver.find_element(By.XPATH,xpath1).text
-    cpti11_div = driver.find_element(By.XPATH,xpath2).text
-    cpti11_dy = driver.find_element(By.XPATH,xpath3).text
+    cpti11_vpa = converter_valor(driver.find_element(By.XPATH,xpath1).text)
+    cpti11_div = converter_valor(driver.find_element(By.XPATH,xpath2).text)
+    cpti11_dy = converter_porcento(driver.find_element(By.XPATH,xpath3).text)
 
     driver.close()
     print("="*46)
 
     return juro11_vpa,juro11_div,juro11_dy,bidb11_vpa, bidb11_div, bidb11_dy ,cpti11_vpa , cpti11_div , cpti11_dy
+##---------------------------------------------------------------------------------
 
 
 # print(" ====== Escreve na planilha")
@@ -226,8 +255,6 @@ creds = Credentials.from_service_account_file(
 )
 
 gc = gspread.authorize(creds)
-
-
 
 try:
     planilha = gc.open('Investimentos')
