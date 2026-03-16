@@ -358,7 +358,7 @@ def main():
     # Entrada do símbolo da ação
     symbol = st.sidebar.text_input(
         "Símbolo da Ação", 
-        value="WEGE3.SA",
+        value="PETR4.SA",
         help="Digite o símbolo da ação (ex.: GOOGL, WEGE3.SA)"
     )
     symbol =symbol.lower()
