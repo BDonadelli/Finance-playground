@@ -368,7 +368,7 @@ def main():
     with col1:
         start_date = st.sidebar.date_input(
             "Data Inicial",
-            value=datetime(2021, 1, 1),
+            value=datetime(2023, 2, 1),
             max_value=datetime.now()
         )
     
