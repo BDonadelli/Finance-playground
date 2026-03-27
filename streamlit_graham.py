@@ -1,3 +1,4 @@
+
 import numpy as np
 import pandas as pd
 import streamlit as st
@@ -89,6 +90,9 @@ bancos = [
 ]
 dados.loc[dados["TICKER"].isin(bancos), "DIVIDA LIQUIDA / EBIT"] = 0
 
+# --- Total de ações na base ---
+total_acoes = len(dados)
+
 # --- Montar critérios com toggles ---
 criterios = (dados[' LPA'] > 0) & (dados[' VPA'] > 0)
 
@@ -111,6 +115,18 @@ resultado['Preço Graham'] = np.round(np.sqrt(22.5 * resultado[' LPA'] * resulta
 resultado['Valorização (%)'] = np.round((resultado['Preço Graham'] / resultado['PRECO'] - 1) * 100, 2)
 resultado['Rank'] = resultado['Valorização (%)'].rank(ascending=True, method="min")
 resultado.sort_values(by="Rank", ascending=False, inplace=True)
+
+# --- Métricas: ações analisadas vs. filtradas ---
+acoes_filtradas = len(resultado)
+acoes_eliminadas = total_acoes - acoes_filtradas
+pct_aprovadas = acoes_filtradas / total_acoes * 100 if total_acoes > 0 else 0
+
+st.markdown("---")
+col1, col2, col3, col4 = st.columns(4)
+col1.metric("🔎 Ações na base", f"{total_acoes}")
+col2.metric("✅ Aprovadas pelos filtros", f"{acoes_filtradas}", delta=f"{pct_aprovadas:.1f}%")
+col3.metric("❌ Eliminadas pelos filtros", f"{acoes_eliminadas}")
+col4.metric("📋 Exibidas na tabela", f"{min(top_n, acoes_filtradas)}")
 
 # --- Tabela ---
 st.markdown("---")
@@ -196,4 +212,5 @@ with st.expander("ℹ️ Sobre a Fórmula de Graham"):
     - CAGR de lucros acima do mínimo (se ativado)
     """)
 
-st.caption("Dados: Status Invest | Cálculo baseado na Fórmula de Benjamin Graham")
+st.caption("Dados: Status Invest | Cálculo baseado na Fórmula de Benjamin Graham " )
+st.caption("Não serve como recomendação de investimento" )
