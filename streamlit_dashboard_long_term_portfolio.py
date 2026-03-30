@@ -76,11 +76,36 @@ def download_prices(tickers, start):
 # =============================
 
 def compute_portfolio(prices, allocation, rebalance_freq='Y'):
-    
-    tickers = list(allocation.keys())
-    weights = np.array([allocation[t] for t in tickers])
 
-    pr = prices[tickers].ffill().dropna()
+    tickers = list(allocation.keys())
+
+    # Only keep tickers that were actually downloaded
+    tickers = [t for t in tickers if t in prices.columns]
+    if not tickers:
+        st.error("Nenhum ticker foi baixado com sucesso. Verifique os símbolos e a conexão.")
+        st.stop()
+
+    weights = np.array([allocation[t] for t in tickers])
+    weights = weights / weights.sum()  # re-normalise after dropping missing tickers
+
+    # Forward-fill individual columns first, then drop rows that are STILL all-NaN
+    pr = prices[tickers].ffill().dropna(how='all')
+
+    # Drop columns (tickers) that are entirely NaN after ffill
+    pr = pr.dropna(axis=1, how='all')
+    tickers = list(pr.columns)
+    weights = np.array([allocation[t] for t in tickers])
+    weights = weights / weights.sum()
+
+    # Drop leading rows where ANY column is still NaN (before that ticker's first data point)
+    pr = pr.dropna(how='any')
+
+    if pr.empty:
+        st.error(
+            "Sem dados suficientes para o período selecionado. "
+            "Tente uma data inicial mais recente ou verifique os tickers."
+        )
+        st.stop()
 
     units = weights / pr.iloc[0].values
     portfolio = (pr * units).sum(axis=1)
@@ -205,8 +230,20 @@ st.dataframe(pd.DataFrame.from_dict(all_weights, orient='index', columns=['Peso'
 # =============================
 
 if st.button("Executar Backtest"):
-    prices = download_prices(list(all_weights.keys()), start=start_date)
+    requested_tickers = list(all_weights.keys())
+    prices = download_prices(requested_tickers, start=start_date)
+
+    # Warn about any tickers that came back completely empty
+    missing = [t for t in requested_tickers if t not in prices.columns or prices[t].isna().all()]
+    if missing:
+        st.warning(f"Os seguintes tickers não retornaram dados e serão excluídos: {missing}")
+
     prices = prices.loc[(prices.index.date >= start_date) & (prices.index.date <= end_date)]
+
+    if prices.empty:
+        st.error("Nenhum dado encontrado para o intervalo de datas selecionado.")
+        st.stop()
+
     port = compute_portfolio(prices, all_weights, rebalance)
     port /= port.iloc[0]
 
