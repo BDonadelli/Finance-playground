@@ -169,8 +169,11 @@ for col in porcentagens :
 df['Num. Cotistas'] = df['Num. Cotistas'].str.replace('.', '', regex=False).astype('Int64')
 
 df['P/VPA'] = df['P/VPA']/100
-df = df.replace([np.inf, -np.inf], 'N/A')
-df = df.fillna('N/A')
+#df = df.replace([np.inf, -np.inf], 'N/A')
+#df = df.fillna('N/A')
+
+df = df.replace([np.inf, -np.inf], np.nan)  # normaliza inf → NaN primeiro
+df = df.astype(object).fillna('N/A')         # converte tudo pra object, aí aceita string
 ##---------------------------------------------------------------------------------
 def dadosInfra () :
 
