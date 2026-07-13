@@ -31,8 +31,16 @@ gc = gspread.authorize(credentials)
 
 ## - selenium -----------------
 
+
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.common.exceptions import (
+    ElementClickInterceptedException,
+    TimeoutException,
+    NoSuchElementException,
+)
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.chrome.service import Service
 
@@ -48,4 +56,18 @@ opts.add_experimental_option("prefs", {
   "safebrowsing.enabled": True
 })
 
-# driver=webdriver.Chrome(options=opts)
+# Reduz popups/notificações nativas do Chrome
+opts.add_argument("--disable-notifications")
+opts.add_argument("--disable-popup-blocking")
+
+
+opts.page_load_strategy = "none"
+
+
+def matar_banners(driver):
+    """Injeta o script que remove banners/popups e mantém um observer ativo na página."""
+    try:
+        driver.execute_script(JS_MATAR_BANNERS, SELETORES_BANNERS)
+    except Exception:
+        pass
+
